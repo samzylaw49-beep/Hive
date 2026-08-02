@@ -1,5 +1,10 @@
  import 'package:flutter/material.dart';
 import 'profile_screen.dart';
+import 'chat_list_screen.dart';
+import 'notifications_screen.dart';
+import 'create_post_screen.dart';
+import 'post_model.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,42 +19,50 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
 
 
-  final List<Widget> pages = [
+  List<Post> posts = [
 
-    const HiveFeed(),
-
-
-    const Center(
-      child: Text(
-        "Search",
-        style: TextStyle(
-          fontSize: 28,
-        ),
-      ),
+    Post(
+      username: "Hive",
+      content: "Welcome to Hive 🐝",
+      createdAt: DateTime.now(),
     ),
-
-
-    const Center(
-      child: Text(
-        "Notifications",
-        style: TextStyle(
-          fontSize: 28,
-        ),
-      ),
-    ),
-
-
-    const ProfileScreen(),
 
   ];
+
 
 
   @override
   Widget build(BuildContext context) {
 
+
+    final pages = [
+
+      HiveFeed(posts: posts),
+
+      const Center(
+        child: Text(
+          "Search",
+          style: TextStyle(
+            fontSize: 28,
+          ),
+        ),
+      ),
+
+
+      const NotificationsScreen(),
+
+
+      const ProfileScreen(),
+
+    ];
+
+
+
     return Scaffold(
 
+
       appBar: AppBar(
+
 
         title: const Text(
           "Hive 🐝",
@@ -59,67 +72,140 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
 
 
+
         actions: [
+
 
           IconButton(
 
+
             onPressed: () {
 
-              // Chat screen will be connected later
+
+              Navigator.push(
+
+                context,
+
+                MaterialPageRoute(
+
+                  builder: (context) =>
+                      const ChatListScreen(),
+
+                ),
+
+              );
+
 
             },
 
 
             icon: const Icon(
+
               Icons.chat_bubble_outline,
+
             ),
 
           ),
 
+
         ],
 
+
       ),
+
 
 
       body: pages[currentIndex],
 
 
+
+
       floatingActionButton: FloatingActionButton(
 
-        onPressed: () {
 
-          // Create post screen will be connected later
+        onPressed: () async {
+
+
+          final Post? newPost = await Navigator.push(
+
+
+            context,
+
+
+            MaterialPageRoute(
+
+
+              builder: (context) =>
+                  const CreatePostScreen(),
+
+
+            ),
+
+
+          );
+
+
+
+          if (newPost != null) {
+
+
+            setState(() {
+
+
+              posts.add(newPost);
+
+
+            });
+
+
+          }
+
 
         },
 
 
+
         child: const Icon(
+
           Icons.add,
+
         ),
+
 
       ),
 
 
 
+
       bottomNavigationBar: BottomNavigationBar(
 
+
         currentIndex: currentIndex,
+
 
         type: BottomNavigationBarType.fixed,
 
 
+
         onTap: (index) {
+
 
           setState(() {
 
+
             currentIndex = index;
 
+
           });
+
 
         },
 
 
+
         items: const [
+
+
 
           BottomNavigationBarItem(
 
@@ -128,6 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Home",
 
           ),
+
 
 
 
@@ -141,6 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
+
           BottomNavigationBarItem(
 
             icon: Icon(Icons.notifications),
@@ -148,6 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Alerts",
 
           ),
+
 
 
 
@@ -159,11 +248,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
           ),
 
+
         ],
+
 
       ),
 
+
     );
+
 
   }
 
@@ -172,85 +265,85 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
+
+
 class HiveFeed extends StatelessWidget {
 
-  const HiveFeed({super.key});
+
+  final List<Post> posts;
+
+
+  const HiveFeed({
+
+    super.key,
+
+    required this.posts,
+
+  });
+
+
+
 
 
   @override
+
   Widget build(BuildContext context) {
 
 
-    return ListView(
+    return ListView.builder(
+
 
       padding: const EdgeInsets.all(20),
 
 
-      children: [
-
-
-        const Text(
-
-          "Welcome to Hive 🐝",
-
-          style: TextStyle(
-
-            fontSize: 30,
-
-            fontWeight: FontWeight.bold,
-
-          ),
-
-        ),
+      itemCount: posts.length,
 
 
 
-        const SizedBox(height: 8),
+      itemBuilder: (context, index) {
 
 
 
-        const Text(
-
-          "Discover people, ideas and communities.",
-
-          style: TextStyle(
-
-            fontSize: 16,
-
-          ),
-
-        ),
+        final post = posts[index];
 
 
 
-        const SizedBox(height: 25),
+        return Card(
 
 
-
-        Card(
 
           child: Padding(
+
+
 
             padding: const EdgeInsets.all(20),
 
 
+
+
             child: Column(
 
-              crossAxisAlignment: CrossAxisAlignment.start,
 
 
-              children: const [
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+
+
+              children: [
+
 
 
                 Text(
 
-                  "Hive is ready 🚀",
+                  post.username,
 
-                  style: TextStyle(
+                  style: const TextStyle(
 
-                    fontSize: 22,
+                    fontWeight:
+                        FontWeight.bold,
 
-                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
 
                   ),
 
@@ -258,30 +351,46 @@ class HiveFeed extends StatelessWidget {
 
 
 
-                SizedBox(height: 10),
+
+                const SizedBox(height: 10),
+
 
 
 
                 Text(
 
-                  "Your personalized posts will appear here.",
+                  post.content,
+
+                  style: const TextStyle(
+
+                    fontSize: 16,
+
+                  ),
 
                 ),
 
 
+
               ],
+
+
 
             ),
 
+
           ),
 
-        ),
+
+        );
 
 
-      ],
+      },
+
 
     );
 
+
   }
+
 
 }
