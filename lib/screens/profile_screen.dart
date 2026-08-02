@@ -1,6 +1,7 @@
  import 'package:flutter/material.dart';
 import 'edit_profile_screen.dart';
 import 'settings_screen.dart';
+import 'user_data.dart';
 import 'post_model.dart';
 
 
@@ -32,6 +33,7 @@ class ProfileScreen extends StatelessWidget {
         title: const Text(
           "Profile",
         ),
+
 
 
         actions: [
@@ -80,6 +82,7 @@ class ProfileScreen extends StatelessWidget {
 
 
 
+
       body: SingleChildScrollView(
 
 
@@ -92,6 +95,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
 
 
+
             const CircleAvatar(
 
 
@@ -100,12 +104,9 @@ class ProfileScreen extends StatelessWidget {
 
               child: Icon(
 
-
                 Icons.person,
 
-
                 size: 60,
-
 
               ),
 
@@ -114,17 +115,19 @@ class ProfileScreen extends StatelessWidget {
 
 
 
+
             const SizedBox(height: 20),
 
 
 
-            const Text(
+
+            Text(
 
 
-              "Hive User",
+              currentUser.displayName,
 
 
-              style: TextStyle(
+              style: const TextStyle(
 
 
                 fontSize: 24,
@@ -140,11 +143,13 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-            const Text(
 
-              "@hive_user",
+            Text(
+
+              "@${currentUser.username}",
 
             ),
+
 
 
 
@@ -152,16 +157,15 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-            const Text(
 
+            Text(
 
-              "Welcome to Hive 🐝",
-
+              currentUser.bio,
 
               textAlign: TextAlign.center,
 
-
             ),
+
 
 
 
@@ -169,105 +173,26 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-            Row(
 
+            Text(
 
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceEvenly,
+              "Posts: ${posts.length}",
 
+              style: const TextStyle(
 
-              children: [
+                fontSize: 18,
 
+                fontWeight: FontWeight.bold,
 
-                Column(
-
-                  children: [
-
-                    Text(
-
-                      "${posts.length}",
-
-                      style: const TextStyle(
-
-                        fontSize: 22,
-
-                        fontWeight:
-                            FontWeight.bold,
-
-                      ),
-
-                    ),
-
-                    const Text("Posts"),
-
-                  ],
-
-                ),
-
-
-
-                const Column(
-
-                  children: [
-
-                    Text(
-
-                      "0",
-
-                      style: TextStyle(
-
-                        fontSize: 22,
-
-                        fontWeight:
-                            FontWeight.bold,
-
-                      ),
-
-                    ),
-
-                    Text("Followers"),
-
-                  ],
-
-                ),
-
-
-
-                const Column(
-
-                  children: [
-
-                    Text(
-
-                      "0",
-
-                      style: TextStyle(
-
-                        fontSize: 22,
-
-                        fontWeight:
-                            FontWeight.bold,
-
-                      ),
-
-                    ),
-
-                    Text("Following"),
-
-                  ],
-
-                ),
-
-
-
-              ],
-
+              ),
 
             ),
 
 
 
+
             const SizedBox(height: 25),
+
 
 
 
@@ -305,14 +230,17 @@ class ProfileScreen extends StatelessWidget {
                 },
 
 
+
                 icon: const Icon(
                   Icons.edit,
                 ),
 
 
+
                 label: const Text(
                   "Edit Profile",
                 ),
+
 
 
               ),
@@ -322,7 +250,9 @@ class ProfileScreen extends StatelessWidget {
 
 
 
+
             const SizedBox(height: 30),
+
 
 
 
@@ -337,7 +267,6 @@ class ProfileScreen extends StatelessWidget {
 
                 fontSize: 22,
 
-
                 fontWeight: FontWeight.bold,
 
 
@@ -347,8 +276,6 @@ class ProfileScreen extends StatelessWidget {
             ),
 
 
-
-            const SizedBox(height: 10),
 
 
 
@@ -362,12 +289,16 @@ class ProfileScreen extends StatelessWidget {
 
 
                   title: Text(
+
                     post.content,
+
                   ),
 
 
                   subtitle: Text(
+
                     post.username,
+
                   ),
 
 
@@ -394,5 +325,6 @@ class ProfileScreen extends StatelessWidget {
 
 
   }
+
 
 }
