@@ -1,16 +1,33 @@
  import 'package:flutter/material.dart';
 import 'edit_profile_screen.dart';
 import 'settings_screen.dart';
+import 'post_model.dart';
+
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+
+  final List<Post> posts;
+
+
+  const ProfileScreen({
+
+    super.key,
+
+    required this.posts,
+
+  });
+
+
 
   @override
   Widget build(BuildContext context) {
 
+
     return Scaffold(
 
+
       appBar: AppBar(
+
 
         title: const Text(
           "Profile",
@@ -19,32 +36,45 @@ class ProfileScreen extends StatelessWidget {
 
         actions: [
 
+
           IconButton(
+
 
             icon: const Icon(
               Icons.settings,
             ),
 
+
             onPressed: () {
+
 
               Navigator.push(
 
+
                 context,
 
+
                 MaterialPageRoute(
+
 
                   builder: (context) =>
                       const SettingsScreen(),
 
+
                 ),
+
 
               );
 
+
             },
+
 
           ),
 
+
         ],
+
 
       ),
 
@@ -52,25 +82,33 @@ class ProfileScreen extends StatelessWidget {
 
       body: SingleChildScrollView(
 
+
         padding: const EdgeInsets.all(20),
 
 
         child: Column(
+
 
           children: [
 
 
             const CircleAvatar(
 
-              radius: 60,
+
+              radius: 55,
+
 
               child: Icon(
 
+
                 Icons.person,
 
-                size: 70,
+
+                size: 60,
+
 
               ),
+
 
             ),
 
@@ -82,33 +120,29 @@ class ProfileScreen extends StatelessWidget {
 
             const Text(
 
+
               "Hive User",
+
 
               style: TextStyle(
 
-                fontSize: 26,
+
+                fontSize: 24,
+
 
                 fontWeight: FontWeight.bold,
 
+
               ),
 
+
             ),
-
-
-
-            const SizedBox(height: 5),
 
 
 
             const Text(
 
               "@hive_user",
-
-              style: TextStyle(
-
-                color: Colors.grey,
-
-              ),
 
             ),
 
@@ -120,25 +154,29 @@ class ProfileScreen extends StatelessWidget {
 
             const Text(
 
-              "Welcome to Hive 🐝\nBuilding ideas and communities.",
+
+              "Welcome to Hive 🐝",
+
 
               textAlign: TextAlign.center,
+
 
             ),
 
 
 
-            const SizedBox(height: 25),
+            const SizedBox(height: 20),
 
 
 
             Row(
 
+
               mainAxisAlignment:
                   MainAxisAlignment.spaceEvenly,
 
 
-              children: const [
+              children: [
 
 
                 Column(
@@ -147,19 +185,20 @@ class ProfileScreen extends StatelessWidget {
 
                     Text(
 
-                      "0",
+                      "${posts.length}",
 
-                      style: TextStyle(
+                      style: const TextStyle(
 
                         fontSize: 22,
 
-                        fontWeight: FontWeight.bold,
+                        fontWeight:
+                            FontWeight.bold,
 
                       ),
 
                     ),
 
-                    Text("Posts"),
+                    const Text("Posts"),
 
                   ],
 
@@ -167,7 +206,7 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-                Column(
+                const Column(
 
                   children: [
 
@@ -179,7 +218,8 @@ class ProfileScreen extends StatelessWidget {
 
                         fontSize: 22,
 
-                        fontWeight: FontWeight.bold,
+                        fontWeight:
+                            FontWeight.bold,
 
                       ),
 
@@ -193,7 +233,7 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-                Column(
+                const Column(
 
                   children: [
 
@@ -205,7 +245,8 @@ class ProfileScreen extends StatelessWidget {
 
                         fontSize: 22,
 
-                        fontWeight: FontWeight.bold,
+                        fontWeight:
+                            FontWeight.bold,
 
                       ),
 
@@ -218,7 +259,64 @@ class ProfileScreen extends StatelessWidget {
                 ),
 
 
+
               ],
+
+
+            ),
+
+
+
+            const SizedBox(height: 25),
+
+
+
+            SizedBox(
+
+
+              width: double.infinity,
+
+
+              child: ElevatedButton.icon(
+
+
+                onPressed: () {
+
+
+                  Navigator.push(
+
+
+                    context,
+
+
+                    MaterialPageRoute(
+
+
+                      builder: (context) =>
+                          const EditProfileScreen(),
+
+
+                    ),
+
+
+                  );
+
+
+                },
+
+
+                icon: const Icon(
+                  Icons.edit,
+                ),
+
+
+                label: const Text(
+                  "Edit Profile",
+                ),
+
+
+              ),
+
 
             ),
 
@@ -228,48 +326,56 @@ class ProfileScreen extends StatelessWidget {
 
 
 
-            SizedBox(
-
-              width: double.infinity,
+            const Text(
 
 
-              child: ElevatedButton.icon(
-
-                onPressed: () {
+              "My Posts",
 
 
-                  Navigator.push(
-
-                    context,
-
-                    MaterialPageRoute(
-
-                      builder: (context) =>
-                          const EditProfileScreen(),
-
-                    ),
-
-                  );
+              style: TextStyle(
 
 
-                },
+                fontSize: 22,
 
 
-                icon: const Icon(
-
-                  Icons.edit,
-
-                ),
+                fontWeight: FontWeight.bold,
 
 
-                label: const Text(
+              ),
 
-                  "Edit Profile",
+
+            ),
+
+
+
+            const SizedBox(height: 10),
+
+
+
+            ...posts.map(
+
+
+              (post) => Card(
+
+
+                child: ListTile(
+
+
+                  title: Text(
+                    post.content,
+                  ),
+
+
+                  subtitle: Text(
+                    post.username,
+                  ),
+
 
                 ),
 
 
               ),
+
 
             ),
 
@@ -277,11 +383,16 @@ class ProfileScreen extends StatelessWidget {
 
           ],
 
+
         ),
+
 
       ),
 
+
     );
 
+
   }
+
 }
