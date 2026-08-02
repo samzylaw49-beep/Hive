@@ -1,30 +1,9 @@
  import 'package:flutter/material.dart';
 import 'edit_profile_screen.dart';
+import 'settings_screen.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-
-  String username = "hive_user";
-  String displayName = "Hive User";
-  String bio = "Welcome to Hive 🐝";
-
-  void openEditProfile() async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const EditProfileScreen(),
-      ),
-    );
-
-    // Update profile later when database is connected
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +11,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       appBar: AppBar(
         title: const Text("Profile"),
+
+        actions: [
+
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const SettingsScreen(),
+                ),
+              );
+
+            },
+          ),
+
+        ],
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(20),
+
+      body: Center(
 
         child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
 
             const CircleAvatar(
@@ -48,36 +49,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
+
             const SizedBox(height: 20),
 
-            Text(
-              displayName,
-              style: const TextStyle(
+
+            const Text(
+              "Hive User",
+              style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
 
-            Text(
-              "@$username",
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
+
+            const Text(
+              "@hive_user",
             ),
 
-            const SizedBox(height: 15),
 
-            Text(
-              bio,
-              textAlign: TextAlign.center,
-            ),
+            const SizedBox(height: 20),
 
-            const SizedBox(height: 30),
 
             ElevatedButton.icon(
-              onPressed: openEditProfile,
+
+              onPressed: () {
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const EditProfileScreen(),
+                  ),
+                );
+
+              },
+
               icon: const Icon(Icons.edit),
+
               label: const Text("Edit Profile"),
+
             ),
 
           ],
