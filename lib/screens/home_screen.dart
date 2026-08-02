@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -7,13 +7,15 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+
 class _HomeScreenState extends State<HomeScreen> {
 
   int currentIndex = 0;
 
+
   final List<Widget> pages = const [
 
-    HomeFeed(),
+    HiveFeed(),
 
     Center(
       child: Text(
@@ -45,8 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
 
       appBar: AppBar(
+
         title: const Text(
-          "Hive",
+          "Hive 🐝",
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -56,12 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
           IconButton(
             onPressed: () {},
+
             icon: const Icon(
-              Icons.chat,
+              Icons.chat_bubble_outline,
             ),
           ),
 
         ],
+
       ),
 
 
@@ -69,11 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
       floatingActionButton: FloatingActionButton(
+
         onPressed: () {},
 
         child: const Icon(
           Icons.add,
         ),
+
       ),
 
 
@@ -82,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: currentIndex,
 
         type: BottomNavigationBarType.fixed,
+
 
         onTap: (index) {
 
@@ -93,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         },
 
+
         items: const [
 
           BottomNavigationBarItem(
@@ -100,15 +109,18 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Home",
           ),
 
+
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: "Search",
           ),
 
+
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
             label: "Alerts",
           ),
+
 
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -116,47 +128,68 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
         ],
+
       ),
+
     );
+
   }
+
 }
 
 
-class HomeFeed extends StatelessWidget {
 
-  const HomeFeed({super.key});
+class HiveFeed extends StatelessWidget {
+
+  const HiveFeed({super.key});
 
 
   @override
   Widget build(BuildContext context) {
 
+
     return ListView(
 
       padding: const EdgeInsets.all(20),
 
+
       children: [
 
+
         const Text(
+
           "Welcome to Hive 🐝",
+
           style: TextStyle(
+
             fontSize: 30,
+
             fontWeight: FontWeight.bold,
+
           ),
+
         ),
 
 
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
 
 
         const Text(
-          "Connect with people and discover new ideas.",
+
+          "Discover people, ideas and communities.",
+
           style: TextStyle(
+
             fontSize: 16,
+
           ),
+
         ),
+
 
 
         const SizedBox(height: 25),
+
 
 
         Card(
@@ -165,32 +198,56 @@ class HomeFeed extends StatelessWidget {
 
             padding: const EdgeInsets.all(20),
 
+
             child: Column(
 
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
 
               children: const [
 
+
                 Text(
-                  "Your feed is empty",
+
+                  "Hive is ready 🚀",
+
                   style: TextStyle(
-                    fontSize: 20,
+
+                    fontSize: 22,
+
                     fontWeight: FontWeight.bold,
+
                   ),
+
                 ),
+
+
 
                 SizedBox(height: 10),
 
+
+
                 Text(
-                  "Posts based on your interests will appear here.",
+
+                  "Your personalized posts will appear here.",
+
                 ),
 
+
               ],
+
             ),
+
           ),
+
         ),
 
+
       ],
+
     );
+
   }
+
 }
