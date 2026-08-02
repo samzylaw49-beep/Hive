@@ -42,67 +42,78 @@ class _LoginScreenState extends State<LoginScreen>
 
             return Transform.translate(
               offset: Offset(movement, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+              child: Padding(
+                padding: const EdgeInsets.all(25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
 
-                  const Text(
-                    "H",
-                    style: TextStyle(
-                      fontSize: 90,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  const Text(
-                    "Welcome to Hive",
-                    style: TextStyle(fontSize: 28),
-                  ),
-
-                  const SizedBox(height: 40),
-
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                    const Text(
+                      "H",
+                      style: TextStyle(
+                        fontSize: 90,
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: 15),
+                    const SizedBox(height: 20),
 
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                    const Text(
+                      "Welcome to Hive",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 40),
 
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("Login"),
-                  ),
-
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignupScreen(),
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      );
-                    },
-                    child: const Text("Create Account"),
-                  ),
-                ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text("Login"),
+                      ),
+                    ),
+
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignupScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Create Account",
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
