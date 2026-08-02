@@ -10,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 
   const HomeScreen({super.key});
 
-
   @override
   State<HomeScreen> createState() =>
       _HomeScreenState();
@@ -28,20 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Post> posts = [
 
-
     Post(
-
       username: "Hive",
-
       content: "Welcome to Hive 🐝",
-
       createdAt: DateTime.now(),
-
     ),
 
-
   ];
-
 
 
 
@@ -53,27 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final pages = [
 
-
       HiveFeed(posts: posts),
-
 
 
       const Center(
 
         child: Text(
-
           "Search",
-
           style: TextStyle(
-
             fontSize: 28,
-
           ),
-
         ),
 
       ),
-
 
 
 
@@ -95,14 +79,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
     return Scaffold(
 
 
 
-
       appBar: AppBar(
-
 
 
         title: const Text(
@@ -111,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
           style: TextStyle(
 
-            fontWeight: FontWeight.bold,
+            fontWeight:
+                FontWeight.bold,
 
           ),
 
@@ -119,48 +101,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
         actions: [
-
 
 
 
           IconButton(
 
 
-
             onPressed: () {
-
 
 
               Navigator.push(
 
 
-
                 context,
-
 
 
                 MaterialPageRoute(
 
 
-
                   builder: (context) =>
-
                       const ChatListScreen(),
-
 
 
                 ),
 
 
-
               );
 
 
-
             },
-
 
 
             icon: const Icon(
@@ -168,7 +138,6 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.chat_bubble_outline,
 
             ),
-
 
 
           ),
@@ -184,10 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
-
       body: pages[currentIndex],
-
 
 
 
@@ -214,7 +180,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
               builder: (context) =>
-
                   const CreatePostScreen(),
 
 
@@ -224,7 +189,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
           );
-
 
 
 
@@ -268,16 +232,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
       bottomNavigationBar: BottomNavigationBar(
 
 
 
-        currentIndex: currentIndex,
+        currentIndex:
+            currentIndex,
 
 
 
-        type: BottomNavigationBarType.fixed,
+        type:
+            BottomNavigationBarType.fixed,
 
 
 
@@ -301,10 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
-
         items: const [
-
 
 
 
@@ -318,7 +280,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
           BottomNavigationBarItem(
 
             icon: Icon(Icons.search),
@@ -326,7 +287,6 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Search",
 
           ),
-
 
 
 
@@ -340,7 +300,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
           BottomNavigationBarItem(
 
             icon: Icon(Icons.person),
@@ -351,13 +310,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-
         ],
 
 
 
       ),
-
 
 
 
@@ -370,8 +327,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 }
-
-
 
 
 
@@ -404,15 +359,18 @@ class HiveFeed extends StatelessWidget {
 
 
 
-      padding: const EdgeInsets.all(20),
+      padding:
+          const EdgeInsets.all(20),
 
 
 
-      itemCount: posts.length,
+      itemCount:
+          posts.length,
 
 
 
-      itemBuilder: (context, index) {
+      itemBuilder:
+          (context, index) {
 
 
 
@@ -429,7 +387,8 @@ class HiveFeed extends StatelessWidget {
 
 
 
-            padding: const EdgeInsets.all(20),
+            padding:
+                const EdgeInsets.all(20),
 
 
 
@@ -438,13 +397,11 @@ class HiveFeed extends StatelessWidget {
 
 
               crossAxisAlignment:
-
                   CrossAxisAlignment.start,
 
 
 
               children: [
-
 
 
 
@@ -456,17 +413,18 @@ class HiveFeed extends StatelessWidget {
 
 
 
-                  style: const TextStyle(
+                  style:
+                      const TextStyle(
 
 
 
                     fontWeight:
-
                         FontWeight.bold,
 
 
 
-                    fontSize: 18,
+                    fontSize:
+                        18,
 
 
 
@@ -475,7 +433,6 @@ class HiveFeed extends StatelessWidget {
 
 
                 ),
-
 
 
 
@@ -494,11 +451,13 @@ class HiveFeed extends StatelessWidget {
 
 
 
-                  style: const TextStyle(
+                  style:
+                      const TextStyle(
 
 
 
-                    fontSize: 16,
+                    fontSize:
+                        16,
 
 
 
@@ -507,7 +466,6 @@ class HiveFeed extends StatelessWidget {
 
 
                 ),
-
 
 
 
