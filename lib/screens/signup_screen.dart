@@ -1,5 +1,7 @@
  import 'package:flutter/material.dart';
 import 'login_screen.dart';
+import 'privacy_screen.dart';
+import 'terms_screen.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -73,7 +75,52 @@ class SignupScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 20),
+
+                const Text(
+                  "By creating an account, you agree to Hive's:",
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const PrivacyScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Privacy Policy",
+                      ),
+                    ),
+
+                    const Text("and"),
+
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const TermsScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Terms",
+                      ),
+                    ),
+
+                  ],
+                ),
+
+                const SizedBox(height: 15),
 
                 ElevatedButton(
                   onPressed: () {},
@@ -85,7 +132,8 @@ class SignupScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
+                        builder: (context) =>
+                            const LoginScreen(),
                       ),
                     );
                   },
