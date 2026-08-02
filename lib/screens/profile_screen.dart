@@ -7,92 +7,281 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Profile"),
+
+        title: const Text(
+          "Profile",
+        ),
+
 
         actions: [
 
           IconButton(
-            icon: const Icon(Icons.settings),
+
+            icon: const Icon(
+              Icons.settings,
+            ),
+
             onPressed: () {
 
               Navigator.push(
+
                 context,
+
                 MaterialPageRoute(
+
                   builder: (context) =>
                       const SettingsScreen(),
+
                 ),
+
               );
 
             },
+
           ),
 
         ],
+
       ),
 
 
-      body: Center(
+
+      body: SingleChildScrollView(
+
+        padding: const EdgeInsets.all(20),
+
 
         child: Column(
 
-          mainAxisAlignment: MainAxisAlignment.center,
-
           children: [
 
+
             const CircleAvatar(
-              radius: 55,
+
+              radius: 60,
+
               child: Icon(
+
                 Icons.person,
-                size: 60,
+
+                size: 70,
+
               ),
+
             ),
+
 
 
             const SizedBox(height: 20),
 
 
+
             const Text(
+
               "Hive User",
+
               style: TextStyle(
-                fontSize: 24,
+
+                fontSize: 26,
+
                 fontWeight: FontWeight.bold,
+
               ),
+
             ),
+
+
+
+            const SizedBox(height: 5),
+
 
 
             const Text(
+
               "@hive_user",
+
+              style: TextStyle(
+
+                color: Colors.grey,
+
+              ),
+
+            ),
+
+
+
+            const SizedBox(height: 15),
+
+
+
+            const Text(
+
+              "Welcome to Hive 🐝\nBuilding ideas and communities.",
+
+              textAlign: TextAlign.center,
+
             ),
 
 
-            const SizedBox(height: 20),
+
+            const SizedBox(height: 25),
 
 
-            ElevatedButton.icon(
 
-              onPressed: () {
+            Row(
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const EditProfileScreen(),
-                  ),
-                );
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceEvenly,
 
-              },
 
-              icon: const Icon(Icons.edit),
+              children: const [
 
-              label: const Text("Edit Profile"),
+
+                Column(
+
+                  children: [
+
+                    Text(
+
+                      "0",
+
+                      style: TextStyle(
+
+                        fontSize: 22,
+
+                        fontWeight: FontWeight.bold,
+
+                      ),
+
+                    ),
+
+                    Text("Posts"),
+
+                  ],
+
+                ),
+
+
+
+                Column(
+
+                  children: [
+
+                    Text(
+
+                      "0",
+
+                      style: TextStyle(
+
+                        fontSize: 22,
+
+                        fontWeight: FontWeight.bold,
+
+                      ),
+
+                    ),
+
+                    Text("Followers"),
+
+                  ],
+
+                ),
+
+
+
+                Column(
+
+                  children: [
+
+                    Text(
+
+                      "0",
+
+                      style: TextStyle(
+
+                        fontSize: 22,
+
+                        fontWeight: FontWeight.bold,
+
+                      ),
+
+                    ),
+
+                    Text("Following"),
+
+                  ],
+
+                ),
+
+
+              ],
 
             ),
+
+
+
+            const SizedBox(height: 30),
+
+
+
+            SizedBox(
+
+              width: double.infinity,
+
+
+              child: ElevatedButton.icon(
+
+                onPressed: () {
+
+
+                  Navigator.push(
+
+                    context,
+
+                    MaterialPageRoute(
+
+                      builder: (context) =>
+                          const EditProfileScreen(),
+
+                    ),
+
+                  );
+
+
+                },
+
+
+                icon: const Icon(
+
+                  Icons.edit,
+
+                ),
+
+
+                label: const Text(
+
+                  "Edit Profile",
+
+                ),
+
+
+              ),
+
+            ),
+
+
 
           ],
+
         ),
+
       ),
+
     );
+
   }
 }
