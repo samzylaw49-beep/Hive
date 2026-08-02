@@ -7,27 +7,42 @@ import 'post_model.dart';
 
 
 class HomeScreen extends StatefulWidget {
+
   const HomeScreen({super.key});
 
+
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() =>
+      _HomeScreenState();
+
 }
+
 
 
 class _HomeScreenState extends State<HomeScreen> {
 
+
   int currentIndex = 0;
 
 
-  List<Post> posts = [
+
+  final List<Post> posts = [
+
 
     Post(
+
       username: "Hive",
+
       content: "Welcome to Hive 🐝",
+
       createdAt: DateTime.now(),
+
     ),
 
+
   ];
+
+
 
 
 
@@ -35,68 +50,117 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
 
+
     final pages = [
+
 
       HiveFeed(posts: posts),
 
+
+
       const Center(
+
         child: Text(
+
           "Search",
+
           style: TextStyle(
+
             fontSize: 28,
+
           ),
+
         ),
+
       ),
+
+
 
 
       const NotificationsScreen(),
 
 
-      const ProfileScreen(),
+
+
+      ProfileScreen(
+
+        posts: posts,
+
+      ),
+
+
 
     ];
+
+
 
 
 
     return Scaffold(
 
 
+
+
       appBar: AppBar(
 
 
+
         title: const Text(
+
           "Hive 🐝",
+
           style: TextStyle(
+
             fontWeight: FontWeight.bold,
+
           ),
+
         ),
+
 
 
 
         actions: [
 
 
+
+
           IconButton(
+
 
 
             onPressed: () {
 
 
+
               Navigator.push(
+
+
 
                 context,
 
+
+
                 MaterialPageRoute(
 
+
+
                   builder: (context) =>
+
                       const ChatListScreen(),
 
+
+
                 ),
+
+
 
               );
 
 
+
             },
+
 
 
             icon: const Icon(
@@ -105,13 +169,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
             ),
 
+
+
           ),
+
 
 
         ],
 
 
+
       ),
+
+
+
 
 
 
@@ -120,48 +191,66 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
+
+
       floatingActionButton: FloatingActionButton(
+
 
 
         onPressed: () async {
 
 
+
           final Post? newPost = await Navigator.push(
+
 
 
             context,
 
 
+
             MaterialPageRoute(
 
 
+
               builder: (context) =>
+
                   const CreatePostScreen(),
 
 
+
             ),
+
 
 
           );
 
 
 
+
+
           if (newPost != null) {
+
 
 
             setState(() {
 
 
+
               posts.add(newPost);
+
 
 
             });
 
 
+
           }
 
 
+
         },
+
 
 
 
@@ -172,7 +261,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
 
 
+
       ),
+
+
 
 
 
@@ -180,7 +272,9 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
 
 
+
         currentIndex: currentIndex,
+
 
 
         type: BottomNavigationBarType.fixed,
@@ -190,20 +284,27 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
 
 
+
           setState(() {
+
 
 
             currentIndex = index;
 
 
+
           });
+
 
 
         },
 
 
 
+
+
         items: const [
+
 
 
 
@@ -249,16 +350,24 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
 
+
+
         ],
+
 
 
       ),
 
 
+
+
     );
 
 
+
   }
+
+
 
 }
 
@@ -271,6 +380,7 @@ class HiveFeed extends StatelessWidget {
 
 
   final List<Post> posts;
+
 
 
   const HiveFeed({
@@ -286,14 +396,16 @@ class HiveFeed extends StatelessWidget {
 
 
   @override
-
   Widget build(BuildContext context) {
+
 
 
     return ListView.builder(
 
 
+
       padding: const EdgeInsets.all(20),
+
 
 
       itemCount: posts.length,
@@ -305,6 +417,7 @@ class HiveFeed extends StatelessWidget {
 
 
         final post = posts[index];
+
 
 
 
@@ -320,12 +433,12 @@ class HiveFeed extends StatelessWidget {
 
 
 
-
             child: Column(
 
 
 
               crossAxisAlignment:
+
                   CrossAxisAlignment.start,
 
 
@@ -334,20 +447,35 @@ class HiveFeed extends StatelessWidget {
 
 
 
+
                 Text(
+
+
 
                   post.username,
 
+
+
                   style: const TextStyle(
 
+
+
                     fontWeight:
+
                         FontWeight.bold,
+
+
 
                     fontSize: 18,
 
+
+
                   ),
 
+
+
                 ),
+
 
 
 
@@ -357,17 +485,29 @@ class HiveFeed extends StatelessWidget {
 
 
 
+
                 Text(
+
+
 
                   post.content,
 
+
+
                   style: const TextStyle(
+
+
 
                     fontSize: 16,
 
+
+
                   ),
 
+
+
                 ),
+
 
 
 
@@ -378,19 +518,25 @@ class HiveFeed extends StatelessWidget {
             ),
 
 
+
           ),
+
 
 
         );
 
 
+
       },
+
 
 
     );
 
 
+
   }
+
 
 
 }
