@@ -2,21 +2,49 @@
 import 'edit_profile_screen.dart';
 import 'settings_screen.dart';
 import 'user_data.dart';
-import 'post_model.dart';
 
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
 
-  final List<Post> posts;
+  const ProfileScreen({super.key});
 
 
-  const ProfileScreen({
+  @override
+  State<ProfileScreen> createState() =>
+      _ProfileScreenState();
 
-    super.key,
+}
 
-    required this.posts,
 
-  });
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+
+  void openEditProfile() async {
+
+
+    final updated = await Navigator.push(
+
+      context,
+
+      MaterialPageRoute(
+
+        builder: (context) =>
+            const EditProfileScreen(),
+
+      ),
+
+    );
+
+
+    if (updated == true) {
+
+      setState(() {});
+
+    }
+
+
+  }
 
 
 
@@ -29,78 +57,54 @@ class ProfileScreen extends StatelessWidget {
 
       appBar: AppBar(
 
-
-        title: const Text(
-          "Profile",
-        ),
-
+        title: const Text("Profile"),
 
 
         actions: [
 
-
           IconButton(
 
-
-            icon: const Icon(
-              Icons.settings,
-            ),
-
+            icon: const Icon(Icons.settings),
 
             onPressed: () {
 
-
               Navigator.push(
-
 
                 context,
 
-
                 MaterialPageRoute(
-
 
                   builder: (context) =>
                       const SettingsScreen(),
 
-
                 ),
-
 
               );
 
-
             },
-
 
           ),
 
-
         ],
-
 
       ),
 
 
 
-
-      body: SingleChildScrollView(
-
-
-        padding: const EdgeInsets.all(20),
-
+      body: Center(
 
         child: Column(
+
+          mainAxisAlignment:
+              MainAxisAlignment.center,
 
 
           children: [
 
 
-
             const CircleAvatar(
 
-
               radius: 55,
-
 
               child: Icon(
 
@@ -110,84 +114,42 @@ class ProfileScreen extends StatelessWidget {
 
               ),
 
-
             ),
-
-
 
 
             const SizedBox(height: 20),
 
 
 
-
             Text(
-
 
               currentUser.displayName,
 
-
               style: const TextStyle(
-
 
                 fontSize: 24,
 
-
                 fontWeight: FontWeight.bold,
 
-
               ),
-
 
             ),
 
 
 
-
             Text(
-
               "@${currentUser.username}",
-
             ),
 
 
 
-
-            const SizedBox(height: 15),
-
+            const SizedBox(height: 10),
 
 
 
             Text(
-
               currentUser.bio,
-
-              textAlign: TextAlign.center,
-
             ),
-
-
-
-
-            const SizedBox(height: 20),
-
-
-
-
-            Text(
-
-              "Posts: ${posts.length}",
-
-              style: const TextStyle(
-
-                fontSize: 18,
-
-                fontWeight: FontWeight.bold,
-
-              ),
-
-            ),
-
 
 
 
@@ -195,136 +157,29 @@ class ProfileScreen extends StatelessWidget {
 
 
 
+            ElevatedButton.icon(
 
-            SizedBox(
-
-
-              width: double.infinity,
+              onPressed: openEditProfile,
 
 
-              child: ElevatedButton.icon(
+              icon: const Icon(Icons.edit),
 
 
-                onPressed: () {
-
-
-                  Navigator.push(
-
-
-                    context,
-
-
-                    MaterialPageRoute(
-
-
-                      builder: (context) =>
-                          const EditProfileScreen(),
-
-
-                    ),
-
-
-                  );
-
-
-                },
-
-
-
-                icon: const Icon(
-                  Icons.edit,
-                ),
-
-
-
-                label: const Text(
-                  "Edit Profile",
-                ),
-
-
-
+              label: const Text(
+                "Edit Profile",
               ),
 
-
             ),
-
-
-
-
-            const SizedBox(height: 30),
-
-
-
-
-            const Text(
-
-
-              "My Posts",
-
-
-              style: TextStyle(
-
-
-                fontSize: 22,
-
-                fontWeight: FontWeight.bold,
-
-
-              ),
-
-
-            ),
-
-
-
-
-
-            ...posts.map(
-
-
-              (post) => Card(
-
-
-                child: ListTile(
-
-
-                  title: Text(
-
-                    post.content,
-
-                  ),
-
-
-                  subtitle: Text(
-
-                    post.username,
-
-                  ),
-
-
-                ),
-
-
-              ),
-
-
-            ),
-
 
 
           ],
 
-
         ),
-
 
       ),
 
-
     );
 
-
   }
-
 
 }
