@@ -1,140 +1,245 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
+import 'user_data.dart';
+
 
 class EditProfileScreen extends StatefulWidget {
+
   const EditProfileScreen({super.key});
 
+
   @override
-  State<EditProfileScreen> createState() => _EditProfileScreenState();
+  State<EditProfileScreen> createState() =>
+      _EditProfileScreenState();
+
 }
 
+
+
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final TextEditingController usernameController =
-      TextEditingController(text: "hive_user");
 
-  final TextEditingController displayNameController =
-      TextEditingController(text: "Hive User");
 
-  final TextEditingController bioController =
-      TextEditingController(
-    text: "Welcome to Hive 🐝",
-  );
+  late TextEditingController usernameController;
 
-  final TextEditingController locationController =
-      TextEditingController();
+  late TextEditingController displayNameController;
 
-  final TextEditingController websiteController =
-      TextEditingController();
+  late TextEditingController bioController;
+
+  late TextEditingController locationController;
+
+  late TextEditingController websiteController;
+
+
+
+  @override
+  void initState() {
+
+    super.initState();
+
+
+    usernameController =
+        TextEditingController(
+          text: currentUser.username,
+        );
+
+
+    displayNameController =
+        TextEditingController(
+          text: currentUser.displayName,
+        );
+
+
+    bioController =
+        TextEditingController(
+          text: currentUser.bio,
+        );
+
+
+    locationController =
+        TextEditingController(
+          text: currentUser.location,
+        );
+
+
+    websiteController =
+        TextEditingController(
+          text: currentUser.website,
+        );
+
+  }
+
+
+
 
   @override
   void dispose() {
+
     usernameController.dispose();
+
     displayNameController.dispose();
+
     bioController.dispose();
+
     locationController.dispose();
+
     websiteController.dispose();
+
     super.dispose();
+
   }
+
+
+
+
+  void saveProfile() {
+
+
+    currentUser.username =
+        usernameController.text;
+
+
+    currentUser.displayName =
+        displayNameController.text;
+
+
+    currentUser.bio =
+        bioController.text;
+
+
+    currentUser.location =
+        locationController.text;
+
+
+    currentUser.website =
+        websiteController.text;
+
+
+
+    Navigator.pop(context);
+
+
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
+
+
       appBar: AppBar(
-        title: const Text("Edit Profile"),
+
+        title: const Text(
+          "Edit Profile",
+        ),
+
       ),
 
-      body: SingleChildScrollView(
+
+
+      body: Padding(
+
+
         padding: const EdgeInsets.all(20),
 
-        child: Column(
+
+
+        child: ListView(
+
+
           children: [
 
-            Stack(
-              alignment: Alignment.bottomRight,
-
-              children: [
-
-                const CircleAvatar(
-                  radius: 55,
-                  child: Icon(
-                    Icons.person,
-                    size: 60,
-                  ),
-                ),
-
-                FloatingActionButton.small(
-                  heroTag: "changePhoto",
-                  onPressed: () {
-                    // TODO: Change profile picture
-                  },
-                  child: const Icon(Icons.camera_alt),
-                ),
-
-              ],
-            ),
-
-            const SizedBox(height: 30),
 
             TextField(
+
               controller: usernameController,
+
               decoration: const InputDecoration(
                 labelText: "Username",
-                border: OutlineInputBorder(),
               ),
+
             ),
 
-            const SizedBox(height: 15),
+
 
             TextField(
+
               controller: displayNameController,
+
               decoration: const InputDecoration(
                 labelText: "Display Name",
-                border: OutlineInputBorder(),
               ),
+
             ),
 
-            const SizedBox(height: 15),
+
 
             TextField(
+
               controller: bioController,
-              maxLines: 3,
+
               decoration: const InputDecoration(
                 labelText: "Bio",
-                border: OutlineInputBorder(),
               ),
+
             ),
 
-            const SizedBox(height: 15),
+
 
             TextField(
+
               controller: locationController,
+
               decoration: const InputDecoration(
-                labelText: "Location (Optional)",
-                border: OutlineInputBorder(),
+                labelText: "Location",
               ),
+
             ),
 
-            const SizedBox(height: 15),
+
 
             TextField(
+
               controller: websiteController,
+
               decoration: const InputDecoration(
-                labelText: "Website (Optional)",
-                border: OutlineInputBorder(),
+                labelText: "Website",
               ),
+
             ),
 
-            const SizedBox(height: 30),
 
-            SizedBox(
-              width: double.infinity,
 
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.save),
-                label: const Text("Save Changes"),
+            const SizedBox(height: 25),
+
+
+
+            ElevatedButton(
+
+              onPressed: saveProfile,
+
+
+              child: const Text(
+                "Save Changes",
               ),
+
             ),
 
-            const SizedBox(height: 
+
+          ],
+
+
+        ),
+
+
+      ),
+
+
+    );
+
+
+  }
+
+}
