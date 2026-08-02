@@ -1,4 +1,5 @@
  import 'package:flutter/material.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,30 +14,32 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
 
 
-  final List<Widget> pages = const [
+  final List<Widget> pages = [
 
-    HiveFeed(),
+    const HiveFeed(),
 
-    Center(
+
+    const Center(
       child: Text(
         "Search",
-        style: TextStyle(fontSize: 28),
+        style: TextStyle(
+          fontSize: 28,
+        ),
       ),
     ),
 
-    Center(
+
+    const Center(
       child: Text(
         "Notifications",
-        style: TextStyle(fontSize: 28),
+        style: TextStyle(
+          fontSize: 28,
+        ),
       ),
     ),
 
-    Center(
-      child: Text(
-        "Profile",
-        style: TextStyle(fontSize: 28),
-      ),
-    ),
+
+    const ProfileScreen(),
 
   ];
 
@@ -55,14 +58,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
 
+
         actions: [
 
           IconButton(
-            onPressed: () {},
+
+            onPressed: () {
+
+              // Chat screen will be connected later
+
+            },
+
 
             icon: const Icon(
               Icons.chat_bubble_outline,
             ),
+
           ),
 
         ],
@@ -75,13 +86,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
       floatingActionButton: FloatingActionButton(
 
-        onPressed: () {},
+        onPressed: () {
+
+          // Create post screen will be connected later
+
+        },
+
 
         child: const Icon(
           Icons.add,
         ),
 
       ),
+
 
 
       bottomNavigationBar: BottomNavigationBar(
@@ -105,26 +122,41 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
 
           BottomNavigationBarItem(
+
             icon: Icon(Icons.home),
+
             label: "Home",
+
           ),
 
 
+
           BottomNavigationBarItem(
+
             icon: Icon(Icons.search),
+
             label: "Search",
+
           ),
 
 
+
           BottomNavigationBarItem(
+
             icon: Icon(Icons.notifications),
+
             label: "Alerts",
+
           ),
 
 
+
           BottomNavigationBarItem(
+
             icon: Icon(Icons.person),
+
             label: "Profile",
+
           ),
 
         ],
@@ -136,6 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 }
+
 
 
 
@@ -171,7 +204,9 @@ class HiveFeed extends StatelessWidget {
         ),
 
 
+
         const SizedBox(height: 8),
+
 
 
         const Text(
@@ -201,8 +236,7 @@ class HiveFeed extends StatelessWidget {
 
             child: Column(
 
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
 
 
               children: const [
