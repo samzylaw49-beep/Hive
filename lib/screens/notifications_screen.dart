@@ -1,39 +1,163 @@
- import 'notification_model.dart';
-import 'user_model.dart';
+ import 'package:flutter/material.dart';
 
-class NotificationService {
-
-  static final List<HiveNotification> notifications = [];
+import 'notification_service.dart';
 
 
-  static void addNotification({
 
-    required UserProfile fromUser,
+class NotificationsScreen extends StatefulWidget {
 
-    required String type,
+  const NotificationsScreen({
+    super.key,
+  });
 
-    required String message,
 
-  }) {
 
-    notifications.insert(
+  @override
+  State<NotificationsScreen> createState() =>
+      _NotificationsScreenState();
 
-      0,
+}
 
-      HiveNotification(
 
-        fromUser: fromUser,
 
-        type: type,
+class _NotificationsScreenState
+    extends State<NotificationsScreen> {
 
-        message: message,
 
-        createdAt: DateTime.now(),
+  @override
+  Widget build(BuildContext context) {
+
+
+    final notifications =
+        NotificationService.notifications;
+
+
+
+    return Scaffold(
+
+
+      appBar: AppBar(
+
+        title:
+            const Text(
+              "Notifications 🔔",
+            ),
 
       ),
 
+
+
+
+      body: notifications.isEmpty
+
+          ? const Center(
+
+              child: Text(
+
+                "No notifications yet 🐝",
+
+                style:
+                    TextStyle(
+
+                  fontSize:
+                      18,
+
+                ),
+
+              ),
+
+            )
+
+
+
+          : ListView.builder(
+
+
+              padding:
+                  const EdgeInsets.all(16),
+
+
+
+              itemCount:
+                  notifications.length,
+
+
+
+              itemBuilder:
+                  (context, index) {
+
+
+
+                final notification =
+                    notifications[index];
+
+
+
+                return Card(
+
+
+                  margin:
+                      const EdgeInsets.only(
+                        bottom: 12,
+                      ),
+
+
+
+
+                  child: ListTile(
+
+
+
+                    leading:
+                        const CircleAvatar(
+
+                      child:
+                          Icon(
+                            Icons.person,
+                          ),
+
+                    ),
+
+
+
+
+                    title:
+                        Text(
+
+                      "${notification.fromUser.displayName} ${notification.message}",
+
+                    ),
+
+
+
+
+                    subtitle:
+                        Text(
+
+                      notification.type,
+
+                    ),
+
+
+
+
+                  ),
+
+
+                );
+
+
+              },
+
+
+            ),
+
+
+
     );
 
+
   }
+
 
 }
