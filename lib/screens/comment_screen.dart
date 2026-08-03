@@ -1,7 +1,10 @@
  import 'package:flutter/material.dart';
+
 import 'post_model.dart';
 import 'comment_model.dart';
+import 'notification_service.dart';
 import 'user_data.dart';
+
 
 
 class CommentScreen extends StatefulWidget {
@@ -27,8 +30,7 @@ class CommentScreen extends StatefulWidget {
 
 
 
-class _CommentScreenState
-    extends State<CommentScreen> {
+class _CommentScreenState extends State<CommentScreen> {
 
 
   final TextEditingController commentController =
@@ -36,10 +38,16 @@ class _CommentScreenState
 
 
 
+
   void addComment() {
 
 
-    if (commentController.text.trim().isEmpty) {
+    final text =
+        commentController.text.trim();
+
+
+
+    if (text.isEmpty) {
 
       return;
 
@@ -52,22 +60,49 @@ class _CommentScreenState
 
       widget.post.comments.add(
 
+
         Comment(
 
-          author: currentUser,
+
+          author:
+              currentUser,
+
 
           text:
-              commentController.text.trim(),
+              text,
+
 
           createdAt:
               DateTime.now(),
 
+
         ),
+
 
       );
 
 
+
     });
+
+
+
+    NotificationService.addNotification(
+
+
+      fromUser:
+          currentUser,
+
+
+      type:
+          "Comment",
+
+
+      message:
+          "commented on your post 💬",
+
+
+    );
 
 
 
@@ -75,6 +110,8 @@ class _CommentScreenState
 
 
   }
+
+
 
 
 
@@ -86,6 +123,7 @@ class _CommentScreenState
     super.dispose();
 
   }
+
 
 
 
@@ -117,13 +155,10 @@ class _CommentScreenState
 
           Expanded(
 
-
             child:
                 widget.post.comments.isEmpty
 
-
                 ? const Center(
-
 
                     child: Text(
 
@@ -134,22 +169,16 @@ class _CommentScreenState
 
                     ),
 
-
                   )
 
-
-
                 : ListView.builder(
-
 
                     padding:
                         const EdgeInsets.all(16),
 
 
-
                     itemCount:
                         widget.post.comments.length,
-
 
 
                     itemBuilder:
@@ -161,9 +190,7 @@ class _CommentScreenState
 
 
 
-
                       return Card(
-
 
                         margin:
                             const EdgeInsets.only(
@@ -171,28 +198,18 @@ class _CommentScreenState
                             ),
 
 
-
-
                         child: Padding(
-
 
                           padding:
                               const EdgeInsets.all(12),
 
-
-
-
                           child: Row(
-
 
                             crossAxisAlignment:
                                 CrossAxisAlignment.start,
 
 
-
                             children: [
-
-
 
                               const CircleAvatar(
 
@@ -206,32 +223,27 @@ class _CommentScreenState
 
 
                               const SizedBox(
-                                width: 12,
+
+                                width:
+                                    12,
+
                               ),
-
-
 
 
                               Expanded(
 
-
                                 child: Column(
-
 
                                   crossAxisAlignment:
                                       CrossAxisAlignment.start,
 
 
-
                                   children: [
-
 
 
                                     Text(
 
-
                                       comment.author.displayName,
-
 
                                       style:
                                           const TextStyle(
@@ -241,10 +253,7 @@ class _CommentScreenState
 
                                       ),
 
-
                                     ),
-
-
 
 
                                     Text(
@@ -255,11 +264,12 @@ class _CommentScreenState
 
 
 
-
                                     const SizedBox(
-                                      height: 6,
-                                    ),
 
+                                      height:
+                                          6,
+
+                                    ),
 
 
 
@@ -271,92 +281,43 @@ class _CommentScreenState
 
 
 
-
-                                    const SizedBox(
-                                      height: 6,
-                                    ),
-
-
-
-
-                                    Text(
-
-                                      "${comment.createdAt.day}/${comment.createdAt.month}/${comment.createdAt.year}",
-
-
-                                      style:
-                                          const TextStyle(
-
-                                        color:
-                                            Colors.grey,
-
-                                        fontSize:
-                                            12,
-
-                                      ),
-
-                                    ),
-
-
-
                                   ],
-
 
                                 ),
 
-
                               ),
-
 
                             ],
 
-
                           ),
 
-
                         ),
-
 
                       );
 
 
-
                     },
-
 
                   ),
 
-
           ),
-
-
-
-
           Padding(
-
 
             padding:
                 const EdgeInsets.all(8),
 
 
-
-
             child: Row(
-
 
               children: [
 
 
-
                 Expanded(
-
 
                   child: TextField(
 
-
                     controller:
                         commentController,
-
 
 
                     decoration:
@@ -370,31 +331,24 @@ class _CommentScreenState
 
                     ),
 
-
-
                   ),
-
-
 
                 ),
 
 
 
-
                 IconButton(
-
 
                   onPressed:
                       addComment,
 
 
-
                   icon:
                       const Icon(
-                        Icons.send,
-                      ),
 
+                    Icons.send,
 
+                  ),
 
                 ),
 
@@ -402,20 +356,14 @@ class _CommentScreenState
 
               ],
 
-
             ),
-
-
 
           ),
 
 
-
         ],
 
-
       ),
-
 
     );
 
