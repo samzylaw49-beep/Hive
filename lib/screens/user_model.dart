@@ -1,4 +1,4 @@
-class UserProfile {
+ class UserProfile {
 
   String username;
   String displayName;
@@ -6,6 +6,12 @@ class UserProfile {
   String location;
   String website;
   String profileImage;
+
+  int followers;
+  int following;
+
+  List<String> followersList;
+  List<String> followingList;
 
 
   UserProfile({
@@ -17,6 +23,12 @@ class UserProfile {
     this.location = "",
     this.website = "",
     this.profileImage = "",
+
+    this.followers = 0,
+    this.following = 0,
+
+    this.followersList = const [],
+    this.followingList = const [],
 
   });
 
