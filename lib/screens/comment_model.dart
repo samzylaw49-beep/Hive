@@ -1,8 +1,22 @@
+ import 'user_model.dart';
+
 class Comment {
-  final String username;
+
+  final UserProfile author;
+
   final String text;
+
   final DateTime createdAt;
 
+
   Comment({
-    required this.username,
-   
+
+    required this.author,
+
+    required this.text,
+
+    required this.createdAt,
+
+  });
+
+}
