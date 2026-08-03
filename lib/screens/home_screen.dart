@@ -5,6 +5,7 @@ import 'notifications_screen.dart';
 import 'post_model.dart';
 import 'profile_screen.dart';
 import 'search_screen.dart';
+import 'comment_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,11 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final pages = [
       HiveFeed(posts: posts),
-
       const SearchScreen(),
-
       const NotificationsScreen(),
-
       const ProfileScreen(),
     ];
 
@@ -49,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
         actions: [
           IconButton(
-            icon: const Icon(Icons.chat_bubble_outline),
+            icon: const Icon(
+              Icons.chat_bubble_outline,
+            ),
 
             onPressed: () {
               Navigator.push(
@@ -69,10 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
 
         onPressed: () async {
-          final Post? newPost = await Navigator.push(
+          final Post? newPost =
+              await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => const CreatePostScreen(),
+              builder: (_) =>
+                  const CreatePostScreen(),
             ),
           );
 
@@ -84,7 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:
+          BottomNavigationBar(
         currentIndex: currentIndex,
 
         type: BottomNavigationBarType.fixed,
@@ -140,9 +143,6 @@ class _HiveFeedState extends State<HiveFeed> {
         child: Text(
           "No posts yet.\nCreate your first Hive post! 🐝",
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 18,
-          ),
         ),
       );
     }
@@ -150,21 +150,21 @@ class _HiveFeedState extends State<HiveFeed> {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: widget.posts.length,
+
       itemBuilder: (context, index) {
         final post = widget.posts[index];
 
         return Card(
-          margin: const EdgeInsets.only(bottom: 16),
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+          margin: const EdgeInsets.only(
+            bottom: 16,
           ),
 
           child: Padding(
             padding: const EdgeInsets.all(16),
 
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
 
               children: [
 
@@ -178,37 +178,19 @@ class _HiveFeedState extends State<HiveFeed> {
                     const SizedBox(width: 12),
 
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
-
-                        children: [
-
-                          Text(
-                            post.username,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-
-                          Text(
-                            "${post.createdAt.day}/${post.createdAt.month}/${post.createdAt.year}",
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
-                          ),
-
-                        ],
+                      child: Text(
+                        post.username,
+                        style: const TextStyle(
+                          fontWeight:
+                              FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
 
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.more_vert),
+                    const Icon(
+                      Icons.more_vert,
                     ),
-
                   ],
                 ),
 
@@ -244,51 +226,3 @@ class _HiveFeedState extends State<HiveFeed> {
                         post.likes > 0
                             ? Icons.favorite
                             : Icons.favorite_border,
-
-                        color: post.likes > 0
-                            ? Colors.red
-                            : null,
-                      ),
-
-                      label: Text(
-                        post.likes > 0
-                            ? "${post.likes}"
-                            : "Like",
-                      ),
-                    ),
-
-                    TextButton.icon(
-                      onPressed: () {},
-
-                      icon: const Icon(
-                        Icons.chat_bubble_outline,
-                      ),
-
-                      label: const Text(
-                        "Comment",
-                      ),
-                    ),
-
-                    TextButton.icon(
-                      onPressed: () {},
-
-                      icon: const Icon(
-                        Icons.share_outlined,
-                      ),
-
-                      label: const Text(
-                        "Share",
-                      ),
-                    ),
-
-                  ],
-                ),
-
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
