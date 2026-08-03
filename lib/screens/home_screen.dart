@@ -1,500 +1,255 @@
  import 'package:flutter/material.dart';
-import 'profile_screen.dart';
 import 'chat_list_screen.dart';
-import 'notifications_screen.dart';
 import 'create_post_screen.dart';
+import 'notifications_screen.dart';
 import 'post_model.dart';
-
+import 'profile_screen.dart';
+import 'search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() =>
-      _HomeScreenState();
-
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
-
-
   int currentIndex = 0;
 
-
-
   final List<Post> posts = [
-
     Post(
       username: "Hive",
       content: "Welcome to Hive 🐝",
       createdAt: DateTime.now(),
     ),
-
   ];
-
-
-
 
   @override
   Widget build(BuildContext context) {
-
-
-
     final pages = [
-
       HiveFeed(posts: posts),
 
-
-      const Center(
-
-        child: Text(
-          "Search",
-          style: TextStyle(
-            fontSize: 28,
-          ),
-        ),
-
-      ),
-
-
+      const SearchScreen(),
 
       const NotificationsScreen(),
 
-
-
-
-      ProfileScreen(
-
-        posts: posts,
-
-      ),
-
-
-
+      const ProfileScreen(),
     ];
 
-
-
-
     return Scaffold(
-
-
-
       appBar: AppBar(
-
-
         title: const Text(
-
           "Hive 🐝",
-
           style: TextStyle(
-
-            fontWeight:
-                FontWeight.bold,
-
+            fontWeight: FontWeight.bold,
           ),
-
         ),
 
-
-
         actions: [
-
-
-
           IconButton(
-
+            icon: const Icon(Icons.chat_bubble_outline),
 
             onPressed: () {
-
-
               Navigator.push(
-
-
                 context,
-
-
                 MaterialPageRoute(
-
-
-                  builder: (context) =>
-                      const ChatListScreen(),
-
-
+                  builder: (_) => const ChatListScreen(),
                 ),
-
-
               );
-
-
             },
-
-
-            icon: const Icon(
-
-              Icons.chat_bubble_outline,
-
-            ),
-
-
           ),
-
-
-
         ],
-
-
-
       ),
-
-
-
 
       body: pages[currentIndex],
 
-
-
-
-
       floatingActionButton: FloatingActionButton(
-
-
+        child: const Icon(Icons.add),
 
         onPressed: () async {
-
-
-
           final Post? newPost = await Navigator.push(
-
-
-
             context,
-
-
-
             MaterialPageRoute(
-
-
-
-              builder: (context) =>
-                  const CreatePostScreen(),
-
-
-
+              builder: (_) => const CreatePostScreen(),
             ),
-
-
-
           );
 
-
-
-
           if (newPost != null) {
-
-
-
             setState(() {
-
-
-
-              posts.add(newPost);
-
-
-
+              posts.insert(0, newPost);
             });
-
-
-
           }
-
-
-
         },
-
-
-
-
-        child: const Icon(
-
-          Icons.add,
-
-        ),
-
-
-
       ),
-
-
-
-
 
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
 
-
-
-        currentIndex:
-            currentIndex,
-
-
-
-        type:
-            BottomNavigationBarType.fixed,
-
-
+        type: BottomNavigationBarType.fixed,
 
         onTap: (index) {
-
-
-
           setState(() {
-
-
-
             currentIndex = index;
-
-
-
           });
-
-
-
         },
 
-
-
         items: const [
-
-
-
           BottomNavigationBarItem(
-
             icon: Icon(Icons.home),
-
             label: "Home",
-
           ),
 
-
-
           BottomNavigationBarItem(
-
             icon: Icon(Icons.search),
-
             label: "Search",
-
           ),
 
-
-
           BottomNavigationBarItem(
-
             icon: Icon(Icons.notifications),
-
             label: "Alerts",
-
           ),
-
-
 
           BottomNavigationBarItem(
-
             icon: Icon(Icons.person),
-
             label: "Profile",
-
           ),
-
-
-
         ],
-
-
-
       ),
-
-
-
     );
-
-
-
   }
-
-
-
 }
-
-
-
-
 class HiveFeed extends StatelessWidget {
-
-
   final List<Post> posts;
 
-
-
   const HiveFeed({
-
     super.key,
-
     required this.posts,
-
   });
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
-
-
+    if (posts.isEmpty) {
+      return const Center(
+        child: Text(
+          "No posts yet.\nCreate your first Hive post! 🐝",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+      );
+    }
 
     return ListView.builder(
-
-
-
-      padding:
-          const EdgeInsets.all(20),
-
-
-
-      itemCount:
-          posts.length,
-
-
-
-      itemBuilder:
-          (context, index) {
-
-
-
+      padding: const EdgeInsets.all(16),
+      itemCount: posts.length,
+      itemBuilder: (context, index) {
         final post = posts[index];
 
-
-
-
         return Card(
-
-
+          margin: const EdgeInsets.only(bottom: 16),
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
 
           child: Padding(
-
-
-
-            padding:
-                const EdgeInsets.all(20),
-
-
+            padding: const EdgeInsets.all(16),
 
             child: Column(
-
-
-
               crossAxisAlignment:
                   CrossAxisAlignment.start,
 
-
-
               children: [
 
+                Row(
+                  children: [
 
+                    const CircleAvatar(
+                      child: Icon(Icons.person),
+                    ),
 
-                Text(
+                    const SizedBox(width: 12),
 
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
 
+                        children: [
 
-                  post.username,
+                          Text(
+                            post.username,
+                            style: const TextStyle(
+                              fontWeight:
+                                  FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
 
+                          Text(
+                            "${post.createdAt.day}/${post.createdAt.month}/${post.createdAt.year}",
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
 
+                        ],
+                      ),
+                    ),
 
-                  style:
-                      const TextStyle(
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.more_vert),
+                    ),
 
-
-
-                    fontWeight:
-                        FontWeight.bold,
-
-
-
-                    fontSize:
-                        18,
-
-
-
-                  ),
-
-
-
+                  ],
                 ),
 
-
-
-
-                const SizedBox(height: 10),
-
-
-
-
+                const SizedBox(height: 16),
 
                 Text(
-
-
-
                   post.content,
-
-
-
-                  style:
-                      const TextStyle(
-
-
-
-                    fontSize:
-                        16,
-
-
-
+                  style: const TextStyle(
+                    fontSize: 16,
                   ),
-
-
-
                 ),
 
+                const SizedBox(height: 20),
 
+                Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceAround,
+
+                  children: [
+
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.favorite_border),
+                      label: const Text("Like"),
+                    ),
+
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.chat_bubble_outline),
+                      label: const Text("Comment"),
+                    ),
+
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.share_outlined),
+                      label: const Text("Share"),
+                    ),
+
+                  ],
+                ),
 
               ],
-
-
-
             ),
-
-
-
           ),
-
-
-
         );
-
-
-
       },
-
-
-
     );
-
-
-
   }
-
-
-
 }
