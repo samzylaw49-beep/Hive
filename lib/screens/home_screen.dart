@@ -3,6 +3,7 @@
 import 'chat_list_screen.dart';
 import 'create_post_screen.dart';
 import 'notifications_screen.dart';
+import 'notification_service.dart';
 import 'post_model.dart';
 import 'profile_screen.dart';
 import 'search_screen.dart';
@@ -113,22 +114,17 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
 
 
-
           IconButton(
 
 
             icon:
                 const Icon(
-
-              Icons.chat_bubble_outline,
-
-            ),
-
+                  Icons.chat_bubble_outline,
+                ),
 
 
 
             onPressed: () {
-
 
 
               Navigator.push(
@@ -150,12 +146,10 @@ class _HomeScreenState extends State<HomeScreen> {
               );
 
 
-
             },
 
 
           ),
-
 
 
         ],
@@ -180,7 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const Icon(
               Icons.add,
             ),
-
 
 
 
@@ -228,7 +221,6 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
 
-
         },
 
 
@@ -273,50 +265,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
           BottomNavigationBarItem(
 
-
             icon:
                 Icon(
                   Icons.home,
                 ),
 
-
             label:
                 "Home",
-
 
           ),
 
 
 
           BottomNavigationBarItem(
-
 
             icon:
                 Icon(
                   Icons.search,
                 ),
 
-
             label:
                 "Search",
-
 
           ),
 
 
 
           BottomNavigationBarItem(
-
 
             icon:
                 Icon(
                   Icons.notifications,
                 ),
 
-
             label:
                 "Alerts",
-
 
           ),
 
@@ -324,16 +307,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
           BottomNavigationBarItem(
 
-
             icon:
                 Icon(
                   Icons.person,
                 ),
 
-
             label:
                 "Profile",
-
 
           ),
 
@@ -386,16 +366,10 @@ class _HiveFeedState extends State<HiveFeed> {
 
       return const Center(
 
-
         child: Text(
-
           "No posts yet.\nCreate your first Hive post! 🐝",
-
-          textAlign:
-              TextAlign.center,
-
+          textAlign: TextAlign.center,
         ),
-
 
       );
 
@@ -404,19 +378,14 @@ class _HiveFeedState extends State<HiveFeed> {
 
 
 
-
-
     return ListView.builder(
-
 
       padding:
           const EdgeInsets.all(16),
 
 
-
       itemCount:
           widget.posts.length,
-
 
 
       itemBuilder:
@@ -428,9 +397,7 @@ class _HiveFeedState extends State<HiveFeed> {
 
 
 
-
         return Card(
-
 
           margin:
               const EdgeInsets.only(
@@ -438,47 +405,34 @@ class _HiveFeedState extends State<HiveFeed> {
               ),
 
 
-
           child: Padding(
-
 
             padding:
                 const EdgeInsets.all(16),
 
 
-
-
             child: Column(
-
 
               crossAxisAlignment:
                   CrossAxisAlignment.start,
 
 
-
               children: [
-
 
 
                 Row(
 
-
-
                   children: [
 
 
-
                     const CircleAvatar(
-
 
                       child:
                           Icon(
                             Icons.person,
                           ),
 
-
                     ),
-
 
 
 
@@ -488,25 +442,18 @@ class _HiveFeedState extends State<HiveFeed> {
 
 
 
-
                     Expanded(
 
-
                       child: GestureDetector(
-
 
                         onTap: () {
 
 
-
                           Navigator.push(
-
 
                             context,
 
-
                             MaterialPageRoute(
-
 
                               builder: (_) =>
                                   PublicProfileScreen(
@@ -516,45 +463,32 @@ class _HiveFeedState extends State<HiveFeed> {
 
                               ),
 
-
                             ),
 
-
                           );
-
 
 
                         },
 
 
-
                         child: Text(
 
-
                           post.author.displayName,
-
-
 
                           style:
                               const TextStyle(
 
-
                             fontWeight:
                                 FontWeight.bold,
-
 
                             fontSize:
                                 18,
 
-
                           ),
-
 
                         ),
 
-
                       ),
-
 
                     ),
 
@@ -565,12 +499,9 @@ class _HiveFeedState extends State<HiveFeed> {
                     ),
 
 
-
                   ],
 
-
                 ),
-
 
 
 
@@ -580,25 +511,13 @@ class _HiveFeedState extends State<HiveFeed> {
 
 
 
-
                 Text(
-
-
                   post.content,
-
-
-
                   style:
                       const TextStyle(
-
-                    fontSize:
-                        16,
-
+                    fontSize: 16,
                   ),
-
-
                 ),
-
 
 
 
@@ -608,21 +527,16 @@ class _HiveFeedState extends State<HiveFeed> {
 
 
 
-
                 Row(
-
 
                   mainAxisAlignment:
                       MainAxisAlignment.spaceAround,
 
 
-
                   children: [
 
 
-
                     TextButton.icon(
-
 
                       onPressed: () {
 
@@ -642,6 +556,20 @@ class _HiveFeedState extends State<HiveFeed> {
                             post.likes++;
 
 
+                            NotificationService.addNotification(
+
+                              fromUser:
+                                  currentUser,
+
+                              type:
+                                  "Like",
+
+                              message:
+                                  "liked your post ❤️",
+
+                            );
+
+
                           }
 
 
@@ -652,16 +580,13 @@ class _HiveFeedState extends State<HiveFeed> {
 
 
 
-                      icon:
-                          Icon(
-
+                      icon: Icon(
 
                         post.likes > 0
 
                             ? Icons.favorite
 
                             : Icons.favorite_border,
-
 
 
                         color:
@@ -671,15 +596,11 @@ class _HiveFeedState extends State<HiveFeed> {
 
                                 : null,
 
-
                       ),
 
 
 
-
-                      label:
-                          Text(
-
+                      label: Text(
 
                         post.likes > 0
 
@@ -687,32 +608,23 @@ class _HiveFeedState extends State<HiveFeed> {
 
                             : "Like",
 
-
                       ),
-
-
 
                     ),
 
 
 
 
-
                     TextButton.icon(
-
-
 
                       onPressed: () async {
 
 
                         await Navigator.push(
 
-
                           context,
 
-
                           MaterialPageRoute(
-
 
                             builder: (_) =>
                                 CommentScreen(
@@ -722,9 +634,7 @@ class _HiveFeedState extends State<HiveFeed> {
 
                             ),
 
-
                           ),
-
 
                         );
 
@@ -732,28 +642,19 @@ class _HiveFeedState extends State<HiveFeed> {
                         setState(() {});
 
 
-
                       },
-
 
 
                       icon:
                           const Icon(
-
-                        Icons.chat_bubble_outline,
-
-                      ),
-
-
+                            Icons.chat_bubble_outline,
+                          ),
 
 
                       label:
                           Text(
-
-                        "Comment (${post.comments.length})",
-
-                      ),
-
+                            "Comment (${post.comments.length})",
+                          ),
 
 
                     ),
@@ -764,20 +665,14 @@ class _HiveFeedState extends State<HiveFeed> {
 
                     TextButton.icon(
 
-
-
                       onPressed: () async {
-
 
 
                         await Navigator.push(
 
-
                           context,
 
-
                           MaterialPageRoute(
-
 
                             builder: (_) =>
                                 ShareScreen(
@@ -787,72 +682,53 @@ class _HiveFeedState extends State<HiveFeed> {
 
                             ),
 
-
                           ),
 
-
                         );
-
 
 
                         setState(() {});
 
 
-
                       },
-
 
 
                       icon:
                           const Icon(
-
-                        Icons.repeat,
-
-                      ),
-
-
+                            Icons.repeat,
+                          ),
 
 
                       label:
                           Text(
 
-                        post.reposts > 0
+                            post.reposts > 0
 
-                            ? "${post.reposts}"
+                                ? "${post.reposts}"
 
-                            : "Share",
+                                : "Share",
 
-
-                      ),
-
+                          ),
 
 
                     ),
 
 
-
-
                   ],
-
 
                 ),
 
 
-
               ],
-
 
             ),
 
-
           ),
-
 
         );
 
 
       },
-
 
     );
 
