@@ -1,150 +1,39 @@
- import 'package:flutter/material.dart';
-import 'notification_model.dart';
-import 'user_data.dart';
+ import 'notification_model.dart';
+import 'user_model.dart';
+
+class NotificationService {
+
+  static final List<HiveNotification> notifications = [];
 
 
-class NotificationsScreen extends StatefulWidget {
+  static void addNotification({
 
-  const NotificationsScreen({
-    super.key,
-  });
+    required UserProfile fromUser,
 
+    required String type,
 
-  @override
-  State<NotificationsScreen> createState() =>
-      _NotificationsScreenState();
+    required String message,
+
+  }) {
+
+    notifications.insert(
+
+      0,
+
+      HiveNotification(
+
+        fromUser: fromUser,
+
+        type: type,
+
+        message: message,
+
+        createdAt: DateTime.now(),
+
+      ),
+
+    );
+
+  }
 
 }
-
-
-
-class _NotificationsScreenState
-    extends State<NotificationsScreen> {
-
-
-  final List<HiveNotification> notifications = [
-
-
-    HiveNotification(
-
-      fromUser: currentUser,
-
-      type: "Welcome",
-
-      message:
-          "Welcome to Hive 🐝",
-
-      createdAt:
-          DateTime.now(),
-
-    ),
-
-
-  ];
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-
-
-    if (notifications.isEmpty) {
-
-
-      return const Center(
-
-
-        child: Text(
-
-          "No notifications yet 🐝",
-
-          style:
-              TextStyle(
-
-            fontSize:
-                18,
-
-          ),
-
-        ),
-
-
-      );
-
-
-    }
-
-
-
-    return ListView.builder(
-
-
-      padding:
-          const EdgeInsets.all(16),
-
-
-
-      itemCount:
-          notifications.length,
-
-
-
-      itemBuilder:
-          (context, index) {
-
-
-        final notification =
-            notifications[index];
-
-
-
-        return Card(
-
-
-          margin:
-              const EdgeInsets.only(
-                bottom: 12,
-              ),
-
-
-
-
-          child: ListTile(
-
-
-            leading:
-                const CircleAvatar(
-
-              child:
-                  Icon(
-                    Icons.person,
-                  ),
-
-            ),
-
-
-
-            title:
-                Text(
-
-
-              notification.message,
-
-
-              style:
-                  const TextStyle(
-
-                fontWeight:
-                    FontWeight.bold,
-
-              ),
-
-
-            ),
-
-
-
-
-            subtitle:
-                Text
