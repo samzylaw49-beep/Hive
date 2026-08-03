@@ -37,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
 
     return Scaffold(
+      backgroundColor: Colors.white,
+
       appBar: AppBar(
         title: const Text(
           "Hive 🐝",
@@ -118,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-class HiveFeed extends StatelessWidget {
+class HiveFeed extends StatefulWidget {
   final List<Post> posts;
 
   const HiveFeed({
@@ -127,8 +129,13 @@ class HiveFeed extends StatelessWidget {
   });
 
   @override
+  State<HiveFeed> createState() => _HiveFeedState();
+}
+
+class _HiveFeedState extends State<HiveFeed> {
+  @override
   Widget build(BuildContext context) {
-    if (posts.isEmpty) {
+    if (widget.posts.isEmpty) {
       return const Center(
         child: Text(
           "No posts yet.\nCreate your first Hive post! 🐝",
@@ -142,9 +149,9 @@ class HiveFeed extends StatelessWidget {
 
     return ListView.builder(
       padding: const EdgeInsets.all(16),
-      itemCount: posts.length,
+      itemCount: widget.posts.length,
       itemBuilder: (context, index) {
-        final post = posts[index];
+        final post = widget.posts[index];
 
         return Card(
           margin: const EdgeInsets.only(bottom: 16),
@@ -157,8 +164,7 @@ class HiveFeed extends StatelessWidget {
             padding: const EdgeInsets.all(16),
 
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
 
@@ -181,8 +187,7 @@ class HiveFeed extends StatelessWidget {
                           Text(
                             post.username,
                             style: const TextStyle(
-                              fontWeight:
-                                  FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
                           ),
@@ -225,21 +230,55 @@ class HiveFeed extends StatelessWidget {
                   children: [
 
                     TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.favorite_border),
-                      label: const Text("Like"),
+                      onPressed: () {
+                        setState(() {
+                          if (post.likes > 0) {
+                            post.likes--;
+                          } else {
+                            post.likes++;
+                          }
+                        });
+                      },
+
+                      icon: Icon(
+                        post.likes > 0
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+
+                        color: post.likes > 0
+                            ? Colors.red
+                            : null,
+                      ),
+
+                      label: Text(
+                        post.likes > 0
+                            ? "${post.likes}"
+                            : "Like",
+                      ),
                     ),
 
                     TextButton.icon(
                       onPressed: () {},
-                      icon: const Icon(Icons.chat_bubble_outline),
-                      label: const Text("Comment"),
+
+                      icon: const Icon(
+                        Icons.chat_bubble_outline,
+                      ),
+
+                      label: const Text(
+                        "Comment",
+                      ),
                     ),
 
                     TextButton.icon(
                       onPressed: () {},
-                      icon: const Icon(Icons.share_outlined),
-                      label: const Text("Share"),
+
+                      icon: const Icon(
+                        Icons.share_outlined,
+                      ),
+
+                      label: const Text(
+                        "Share",
+                      ),
                     ),
 
                   ],
