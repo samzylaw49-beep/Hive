@@ -1,169 +1,101 @@
  import 'dart:math';
 import 'package:flutter/material.dart';
+
 import 'signup_screen.dart';
+import 'forgot_password_screen.dart';
 import 'home_screen.dart';
 
-
 class LoginScreen extends StatefulWidget {
-
   const LoginScreen({super.key});
 
-
   @override
-  State<LoginScreen> createState() =>
-      _LoginScreenState();
-
+  State<LoginScreen> createState() => _LoginScreenState();
 }
-
-
 
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
 
-
   late AnimationController glitchController;
-
 
   final TextEditingController emailController =
       TextEditingController();
 
-
   final TextEditingController passwordController =
       TextEditingController();
 
-
-
   @override
   void initState() {
-
     super.initState();
 
-
     glitchController = AnimationController(
-
       vsync: this,
-
-      duration: const Duration(
-        milliseconds: 800,
-      ),
-
+      duration: const Duration(milliseconds: 800),
     )..repeat();
-
-
   }
-
-
-
 
   @override
   void dispose() {
-
     glitchController.dispose();
-
     emailController.dispose();
-
     passwordController.dispose();
-
     super.dispose();
-
   }
-
-
-
 
   void login() {
 
-
-    if (emailController.text.isEmpty ||
-        passwordController.text.isEmpty) {
-
+    if (emailController.text.trim().isEmpty ||
+        passwordController.text.trim().isEmpty) {
 
       ScaffoldMessenger.of(context).showSnackBar(
-
         const SnackBar(
-
-          content:
-              Text("Please fill all fields"),
-
+          content: Text(
+            "Please enter your email and password.",
+          ),
         ),
-
       );
 
-
       return;
-
     }
 
-
-
     Navigator.pushReplacement(
-
       context,
-
       MaterialPageRoute(
-
         builder: (context) =>
             const HomeScreen(),
-
       ),
-
     );
-
-
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
 
-
     return Scaffold(
-
 
       body: Center(
 
-
         child: AnimatedBuilder(
-
 
           animation: glitchController,
 
-
           builder: (context, child) {
 
-
-            double movement =
+            final movement =
                 sin(glitchController.value * pi * 2) * 3;
-
-
 
             return Transform.translate(
 
-
               offset: Offset(movement, 0),
 
-
-
-              child: Padding(
-
+              child: SingleChildScrollView(
 
                 padding: const EdgeInsets.all(25),
 
-
-
                 child: Column(
-
 
                   mainAxisAlignment:
                       MainAxisAlignment.center,
 
-
-
                   children: [
-
-
 
                     const Text(
 
@@ -180,8 +112,7 @@ class _LoginScreenState extends State<LoginScreen>
 
                     ),
 
-
-
+                    const SizedBox(height: 20),
 
                     const Text(
 
@@ -198,161 +129,49 @@ class _LoginScreenState extends State<LoginScreen>
 
                     ),
 
-
-
-
                     const SizedBox(height: 40),
-
-
-
 
                     TextField(
 
-                      controller:
-                          emailController,
+                      controller: emailController,
 
+                      keyboardType:
+                          TextInputType.emailAddress,
 
-                      decoration:
-                          const InputDecoration(
+                      decoration: InputDecoration(
 
                         hintText: "Email",
 
-                        border:
-                            OutlineInputBorder(),
+                        border: OutlineInputBorder(
+
+                          borderRadius:
+                              BorderRadius.circular(20),
+
+                        ),
 
                       ),
 
                     ),
-
-
-
 
                     const SizedBox(height: 15),
 
-
-
-
                     TextField(
 
-                      controller:
-                          passwordController,
-
+                      controller: passwordController,
 
                       obscureText: true,
 
-
-                      decoration:
-                          const InputDecoration(
+                      decoration: InputDecoration(
 
                         hintText: "Password",
 
-                        border:
-                            OutlineInputBorder(),
+                        border: OutlineInputBorder(
 
-                      ),
+                          borderRadius:
+                              BorderRadius.circular(20),
 
-                    ),
-
-
-
-
-                    const SizedBox(height: 20),
-
-
-
-
-                    SizedBox(
-
-
-                      width: double.infinity,
-
-
-
-                      child: ElevatedButton(
-
-
-                        onPressed: login,
-
-
-
-                        child: const Text(
-                          "Login",
                         ),
 
-
                       ),
 
-
                     ),
-
-
-
-
-                    TextButton(
-
-
-                      onPressed: () {
-
-
-                        Navigator.push(
-
-
-                          context,
-
-
-                          MaterialPageRoute(
-
-
-                            builder: (context) =>
-                                const SignupScreen(),
-
-
-                          ),
-
-
-                        );
-
-
-                      },
-
-
-
-                      child: const Text(
-
-                        "Create Account",
-
-                      ),
-
-
-                    ),
-
-
-
-                  ],
-
-
-                ),
-
-
-              ),
-
-
-            );
-
-
-          },
-
-
-        ),
-
-
-      ),
-
-
-    );
-
-
-  }
-
-
-}
