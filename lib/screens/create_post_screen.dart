@@ -1,222 +1,72 @@
-import 'package:flutter/material.dart';
-import 'profile_screen.dart';
-import 'chat_list_screen.dart';
-import 'notifications_screen.dart';
-import 'create_post_screen.dart';
+ import 'package:flutter/material.dart';
+import 'post_model.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class CreatePostScreen extends StatefulWidget {
+  const CreatePostScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CreatePostScreen> createState() => _CreatePostScreenState();
 }
 
-
-class _HomeScreenState extends State<HomeScreen> {
-
-  int currentIndex = 0;
-
-  List<String> posts = [
-    "Welcome to Hive 🐝",
-  ];
-
+class _CreatePostScreenState extends State<CreatePostScreen> {
+  final TextEditingController postController =
+      TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-
-    final pages = [
-
-      HiveFeed(posts: posts),
-
-      const Center(
-        child: Text(
-          "Search",
-          style: TextStyle(fontSize: 28),
-        ),
-      ),
-
-      const NotificationsScreen(),
-
-      const ProfileScreen(),
-
-    ];
-
-
-    return Scaffold(
-
-      appBar: AppBar(
-
-        title: const Text(
-          "Hive 🐝",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-
-        actions: [
-
-          IconButton(
-
-            onPressed: () {
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      const ChatListScreen(),
-                ),
-              );
-
-            },
-
-            icon: const Icon(
-              Icons.chat_bubble_outline,
-            ),
-
-          ),
-
-        ],
-
-      ),
-
-
-      body: pages[currentIndex],
-
-
-      floatingActionButton: FloatingActionButton(
-
-        onPressed: () async {
-
-          final post = await Navigator.push(
-
-            context,
-
-            MaterialPageRoute(
-
-              builder: (context) =>
-                  const CreatePostScreen(),
-
-            ),
-
-          );
-
-
-          if (post != null) {
-
-            setState(() {
-
-              posts.add(post);
-
-            });
-
-          }
-
-        },
-
-
-        child: const Icon(
-          Icons.add,
-        ),
-
-      ),
-
-
-      bottomNavigationBar: BottomNavigationBar(
-
-        currentIndex: currentIndex,
-
-        type: BottomNavigationBarType.fixed,
-
-
-        onTap: (index) {
-
-          setState(() {
-
-            currentIndex = index;
-
-          });
-
-        },
-
-
-        items: const [
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: "Search",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: "Alerts",
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-
-        ],
-
-      ),
-
-    );
-
+  void dispose() {
+    postController.dispose();
+    super.dispose();
   }
 
-}
+  void publishPost() {
+    if (postController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Write something first."),
+        ),
+      );
+      return;
+    }
 
+    final post = Post(
+      username: "Hive User",
+      content: postController.text.trim(),
+      createdAt: DateTime.now(),
+    );
 
-
-class HiveFeed extends StatelessWidget {
-
-  final List<String> posts;
-
-  const HiveFeed({
-    super.key,
-    required this.posts,
-  });
-
+    Navigator.pop(context, post);
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    return ListView.builder(
-
-      padding: const EdgeInsets.all(20),
-
-      itemCount: posts.length,
-
-
-      itemBuilder: (context, index) {
-
-        return Card(
-
-          child: Padding(
-
-            padding: const EdgeInsets.all(20),
-
-            child: Text(
-              posts[index],
-              style: const TextStyle(
-                fontSize: 18,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Create Post"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: postController,
+              maxLines: 6,
+              decoration: const InputDecoration(
+                hintText: "What's happening on Hive?",
+                border: OutlineInputBorder(),
               ),
             ),
-
-          ),
-
-        );
-
-      },
-
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: publishPost,
+                icon: const Icon(Icons.send),
+                label: const Text("Publish"),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
-
   }
-
 }
