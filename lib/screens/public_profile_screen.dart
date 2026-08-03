@@ -1,154 +1,320 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
+
 import 'user_model.dart';
 import 'user_data.dart';
 import 'follow_service.dart';
+import 'notification_service.dart';
+
+
 
 class PublicProfileScreen extends StatefulWidget {
+
   final UserProfile user;
 
+
   const PublicProfileScreen({
+
     super.key,
+
     required this.user,
+
   });
+
+
 
   @override
   State<PublicProfileScreen> createState() =>
       _PublicProfileScreenState();
+
 }
+
+
 
 class _PublicProfileScreenState
     extends State<PublicProfileScreen> {
 
+
+
   void toggleFollow() {
+
+
+    final alreadyFollowing =
+        FollowService.isFollowing(
+
+          currentUser,
+
+          widget.user,
+
+        );
+
+
+
 
     setState(() {
 
-      if (FollowService.isFollowing(
-        currentUser,
-        widget.user,
-      )) {
+
+
+      if (alreadyFollowing) {
+
 
         FollowService.unfollowUser(
+
           currentUser,
+
           widget.user,
+
         );
+
+
 
       } else {
 
+
+
         FollowService.followUser(
+
           currentUser,
+
           widget.user,
+
         );
+
+
+
+        NotificationService.addNotification(
+
+          fromUser:
+              currentUser,
+
+
+          type:
+              "Follow",
+
+
+          message:
+              "started following you 👥",
+
+
+        );
+
+
 
       }
 
+
+
     });
 
+
+
   }
+
+
+
 
 
   @override
   Widget build(BuildContext context) {
 
+
     final following =
         FollowService.isFollowing(
+
           currentUser,
+
           widget.user,
+
         );
+
 
 
     return Scaffold(
 
+
       appBar: AppBar(
-        title: Text(
+
+        title:
+            Text(
+
           widget.user.username,
+
         ),
+
       ),
+
+
 
 
       body: Center(
 
+
         child: Column(
+
 
           mainAxisAlignment:
               MainAxisAlignment.center,
 
+
+
           children: [
 
+
+
             const CircleAvatar(
-              radius: 55,
-              child: Icon(
+
+              radius:
+                  55,
+
+              child:
+                  Icon(
+
                 Icons.person,
-                size: 60,
+
+                size:
+                    60,
+
               ),
+
             ),
 
 
-            const SizedBox(height: 20),
+
+
+            const SizedBox(
+
+              height:
+                  20,
+
+            ),
+
+
 
 
             Text(
+
               widget.user.displayName,
 
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+
+              style:
+                  const TextStyle(
+
+                fontSize:
+                    24,
+
+                fontWeight:
+                    FontWeight.bold,
+
               ),
+
             ),
 
 
+
+
             Text(
+
               "@${widget.user.username}",
+
             ),
 
 
-            const SizedBox(height: 10),
+
+
+            const SizedBox(
+
+              height:
+                  10,
+
+            ),
+
+
 
 
             Text(
+
               widget.user.bio,
+
             ),
 
 
-            const SizedBox(height: 20),
+
+
+            const SizedBox(
+
+              height:
+                  20,
+
+            ),
+
+
 
 
             Text(
+
               "${widget.user.followers} Followers",
+
             ),
+
+
 
 
             Text(
+
               "${widget.user.following} Following",
+
             ),
 
 
-            const SizedBox(height: 25),
+
+
+            const SizedBox(
+
+              height:
+                  25,
+
+            ),
+
+
 
 
             ElevatedButton(
 
-              onPressed: toggleFollow,
+
+              onPressed:
+                  toggleFollow,
 
 
-              child: Text(
+
+              child:
+                  Text(
 
                 following
+
                     ? "Following"
+
                     : "Follow",
+
 
               ),
 
+
             ),
+
+
 
           ],
 
+
         ),
+
 
       ),
 
+
     );
 
+
   }
+
 
 }
