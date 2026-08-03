@@ -6,6 +6,7 @@ import 'post_model.dart';
 import 'profile_screen.dart';
 import 'search_screen.dart';
 import 'comment_screen.dart';
+import 'share_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -134,111 +135,16 @@ class HiveFeed extends StatefulWidget {
   });
 
   @override
-  State<HiveFeed> createState() => _HiveFeedState();
+  State<HiveFeed> createState() =>
+      _HiveFeedState();
 }
 
 class _HiveFeedState extends State<HiveFeed> {
+
   @override
   Widget build(BuildContext context) {
+
     if (widget.posts.isEmpty) {
       return const Center(
         child: Text(
-          "No posts yet.\nCreate your first Hive post! 🐝",
-          textAlign: TextAlign.center,
-        ),
-      );
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: widget.posts.length,
-
-      itemBuilder: (context, index) {
-        final post = widget.posts[index];
-
-        return Card(
-          margin: const EdgeInsets.only(
-            bottom: 16,
-          ),
-
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-
-              children: [
-
-                Row(
-                  children: [
-
-                    const CircleAvatar(
-                      child: Icon(Icons.person),
-                    ),
-
-                    const SizedBox(width: 12),
-
-                    Expanded(
-                      child: Text(
-                        post.username,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-
-                    const Icon(
-                      Icons.more_vert,
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 16),
-
-                Text(
-                  post.content,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceAround,
-
-                  children: [
-
-                    TextButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          if (post.likes > 0) {
-                            post.likes--;
-                          } else {
-                            post.likes++;
-                          }
-                        });
-                      },
-
-                      icon: Icon(
-                        post.likes > 0
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-
-                        color: post.likes > 0
-                            ? Colors.red
-                            : null,
-                      ),
-
-                      label: Text(
-                        post.likes > 0
-                            ? "${post.likes}"
-                            : "Like",
-                      ),
-                    ),
-
-
-                    TextButton
+          "
