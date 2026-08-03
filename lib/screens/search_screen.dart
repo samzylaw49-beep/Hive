@@ -1,95 +1,137 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
+import 'public_profile_screen.dart';
+import 'user_model.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<SearchScreen> createState() =>
+      _SearchScreenState();
 }
+
 
 class _SearchScreenState extends State<SearchScreen> {
 
   final TextEditingController searchController =
       TextEditingController();
 
-  final List<Map<String, String>> users = [
 
-    {
-      "name": "Hive Official",
-      "username": "@hive",
-    },
+  final List<UserProfile> users = [
 
-    {
-      "name": "Samzy",
-      "username": "@samzy001",
-    },
+    UserProfile(
+      username: "hive",
+      displayName: "Hive Official",
+      bio: "Welcome to Hive 🐝",
+    ),
 
-    {
-      "name": "Alex",
-      "username": "@alex",
-    },
 
-    {
-      "name": "Sophia",
-      "username": "@sophia",
-    },
+    UserProfile(
+      username: "samzy001",
+      displayName: "Samzy",
+      bio: "Building the future 🚀",
+    ),
 
-    {
-      "name": "Daniel",
-      "username": "@daniel",
-    },
+
+    UserProfile(
+      username: "alex",
+      displayName: "Alex",
+      bio: "Hello Hive",
+    ),
+
+
+    UserProfile(
+      username: "sophia",
+      displayName: "Sophia",
+      bio: "Love music 🎵",
+    ),
+
+
+    UserProfile(
+      username: "daniel",
+      displayName: "Daniel",
+      bio: "Welcome!",
+    ),
 
   ];
 
+
   String search = "";
+
 
   @override
   void dispose() {
+
     searchController.dispose();
+
     super.dispose();
+
   }
+
+
 
   @override
   Widget build(BuildContext context) {
 
-    final filteredUsers = users.where((user) {
 
-      return user["name"]!
+    final filteredUsers =
+        users.where((user) {
+
+      return user.displayName
               .toLowerCase()
               .contains(search.toLowerCase()) ||
 
-          user["username"]!
+          user.username
               .toLowerCase()
               .contains(search.toLowerCase());
 
     }).toList();
 
+
+
     return Scaffold(
 
       appBar: AppBar(
-        title: const Text("Search"),
+
+        title:
+            const Text("Search"),
+
       ),
+
+
 
       body: Column(
 
         children: [
 
+
           Padding(
 
-            padding: const EdgeInsets.all(15),
+            padding:
+                const EdgeInsets.all(15),
+
 
             child: TextField(
 
-              controller: searchController,
+              controller:
+                  searchController,
 
-              decoration: InputDecoration(
 
-                hintText: "Search Hive...",
+              decoration:
+                  InputDecoration(
+
+                hintText:
+                    "Search Hive...",
+
 
                 prefixIcon:
-                    const Icon(Icons.search),
+                    const Icon(
+                      Icons.search,
+                    ),
 
-                border: OutlineInputBorder(
+
+                border:
+                    OutlineInputBorder(
 
                   borderRadius:
                       BorderRadius.circular(15),
@@ -97,6 +139,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
 
               ),
+
+
 
               onChanged: (value) {
 
@@ -112,52 +156,91 @@ class _SearchScreenState extends State<SearchScreen> {
 
           ),
 
+
+
           Expanded(
 
-            child: ListView.builder(
+            child:
+                ListView.builder(
 
-              itemCount: filteredUsers.length,
 
-              itemBuilder: (context, index) {
+              itemCount:
+                  filteredUsers.length,
 
-                final user = filteredUsers[index];
+
+              itemBuilder:
+                  (context, index) {
+
+
+                final user =
+                    filteredUsers[index];
+
+
 
                 return ListTile(
 
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.person),
+
+                  leading:
+                      const CircleAvatar(
+
+                    child:
+                        Icon(
+                          Icons.person,
+                        ),
+
                   ),
 
-                  title: Text(user["name"]!),
+
+
+                  title:
+                      Text(
+                        user.displayName,
+                      ),
+
+
 
                   subtitle:
-                      Text(user["username"]!),
+                      Text(
+                        "@${user.username}",
+                      ),
 
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
+
+
+                  trailing:
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                      ),
+
+
 
                   onTap: () {
 
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(
 
-                      SnackBar(
+                    Navigator.push(
 
-                        content: Text(
-                          "Opening ${user["name"]}'s profile...",
-                        ),
+                      context,
+
+                      MaterialPageRoute(
+
+                        builder: (_) =>
+                            PublicProfileScreen(
+                              user: user,
+                            ),
 
                       ),
 
                     );
 
+
                   },
+
 
                 );
 
+
               },
+
 
             ),
 
