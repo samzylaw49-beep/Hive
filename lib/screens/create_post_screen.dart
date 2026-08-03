@@ -1,5 +1,6 @@
  import 'package:flutter/material.dart';
 import 'post_model.dart';
+import 'user_data.dart';
 
 class CreatePostScreen extends StatefulWidget {
   const CreatePostScreen({super.key});
@@ -9,8 +10,7 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
-  final TextEditingController postController =
-      TextEditingController();
+  final TextEditingController postController = TextEditingController();
 
   @override
   void dispose() {
@@ -19,18 +19,20 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   void publishPost() {
-    if (postController.text.trim().isEmpty) {
+    final content = postController.text.trim();
+
+    if (content.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Write something first."),
+          content: Text("Write something before publishing."),
         ),
       );
       return;
     }
 
     final post = Post(
-      username: "Hive User",
-      content: postController.text.trim(),
+      username: currentUser.username,
+      content: content,
       createdAt: DateTime.now(),
     );
 
@@ -49,9 +51,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           children: [
             TextField(
               controller: postController,
-              maxLines: 6,
+              maxLines: 8,
               decoration: const InputDecoration(
-                hintText: "What's happening on Hive?",
+                hintText: "What's happening on Hive? 🐝",
                 border: OutlineInputBorder(),
               ),
             ),
