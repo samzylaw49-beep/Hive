@@ -55,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const ChatListScreen(),
+                  builder: (_) =>
+                      const ChatListScreen(),
                 ),
               );
             },
@@ -86,8 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      bottomNavigationBar:
-          BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
 
         type: BottomNavigationBarType.fixed,
@@ -181,8 +181,7 @@ class _HiveFeedState extends State<HiveFeed> {
                       child: Text(
                         post.username,
                         style: const TextStyle(
-                          fontWeight:
-                              FontWeight.bold,
+                          fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),
@@ -226,3 +225,62 @@ class _HiveFeedState extends State<HiveFeed> {
                         post.likes > 0
                             ? Icons.favorite
                             : Icons.favorite_border,
+
+                        color: post.likes > 0
+                            ? Colors.red
+                            : null,
+                      ),
+
+                      label: Text(
+                        post.likes > 0
+                            ? "${post.likes}"
+                            : "Like",
+                      ),
+                    ),
+
+                    TextButton.icon(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                CommentScreen(
+                              post: post,
+                            ),
+                          ),
+                        );
+
+                        setState(() {});
+                      },
+
+                      icon: const Icon(
+                        Icons.chat_bubble_outline,
+                      ),
+
+                      label: Text(
+                        "Comment (${post.comments.length})",
+                      ),
+                    ),
+
+                    TextButton.icon(
+                      onPressed: () {},
+
+                      icon: const Icon(
+                        Icons.share_outlined,
+                      ),
+
+                      label: const Text(
+                        "Share",
+                      ),
+                    ),
+
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
