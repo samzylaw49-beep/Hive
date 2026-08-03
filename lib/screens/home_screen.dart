@@ -11,7 +11,8 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() =>
+      _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -87,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
 
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:
+          BottomNavigationBar(
         currentIndex: currentIndex,
 
         type: BottomNavigationBarType.fixed,
@@ -238,49 +240,5 @@ class _HiveFeedState extends State<HiveFeed> {
                       ),
                     ),
 
-                    TextButton.icon(
-                      onPressed: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                CommentScreen(
-                              post: post,
-                            ),
-                          ),
-                        );
 
-                        setState(() {});
-                      },
-
-                      icon: const Icon(
-                        Icons.chat_bubble_outline,
-                      ),
-
-                      label: Text(
-                        "Comment (${post.comments.length})",
-                      ),
-                    ),
-
-                    TextButton.icon(
-                      onPressed: () {},
-
-                      icon: const Icon(
-                        Icons.share_outlined,
-                      ),
-
-                      label: const Text(
-                        "Share",
-                      ),
-                    ),
-
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+                    TextButton
